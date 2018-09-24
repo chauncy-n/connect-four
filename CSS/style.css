@@ -1,0 +1,33 @@
+html,body{
+    margin: 0;
+    padding: 0;
+    background-color: antiquewhite;
+}
+header{
+    background-color: lightblue;
+    text-align: center;
+    margin-bottom: 20px;
+}
+main{
+    margin: auto;
+    background-color: rgb(245, 245, 8);
+    border: 1px solid yellow;
+    height: 410px;
+    width: 500px;
+    padding: 10px;
+    
+}
+.grid{
+    border-radius: 50%;
+    background-color: rgb(206, 168, 122);
+    display: inline-block;
+    height: 50px;
+    width: 50px;
+    padding: 4px;
+    margin: 5px;
+    
+}  
+.gridBtn{
+    text-align: center;
+   
+}  

@@ -6,6 +6,7 @@
 
 ## user interface
 
+* buttons above each column have a button to place piece
 * display player turn
 * if player gets four in a row display which color wins 
 * possibaly have highlighted row show falling peice
