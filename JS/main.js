@@ -22,10 +22,6 @@ function displayWin(){
 }
 
 
-function getCurrentLocation(loc){
-    return loc.className !== "grid";
-}
-
 
 function checkForWin(location){
     index = location;
@@ -104,22 +100,15 @@ function getRow(e){
          if(column[i].style.backgroundColor !== "black" && column[i].style.backgroundColor !== "red"
          && currentPlayer === "red") { 
             column[i].style.backgroundColor = currentPlayer;
-            
-            //console.log(column[i].querySelectorAll);
+
             console.log(column[i].className);
-             var grdLocation = column[i].getElementsByClassName('grid');
-             console.log(grdLocation);
-             var location = Array.prototype.filter.call(grdLocation, function(element, index, grdlocation){
-                //  return element.classList();
-                //  console.log(location);
-             });
             
-             
-
-             console.log(location);
-             
-
-            // checkForWin(location);
+            //  var location = Array.prototype.filter.call(gridElements, function(element, index, gridElements){
+            //     //  return element.classList();
+            //     //  console.log(location);
+            //  });
+            
+             console.log(location); 
             currentPlayer = "black";
             displayCurrentPlayer.textContent = "Player turn: " + currentPlayer;
             
@@ -133,9 +122,8 @@ function getRow(e){
                  return element.classList[i];
              });
              console.log(location);
-            // console.log(gridElements);
             // location = column[i].classList
-            // checkForWin(location);
+            
             console.log(column[i].classList)
             currentPlayer = "red";
             displayCurrentPlayer.textContent =  "Player turn: " + currentPlayer;
