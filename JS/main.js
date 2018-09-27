@@ -28,9 +28,9 @@ function playMove(evt){
     columnId = evt.target.id;
     var columnArray = document.getElementsByClassName(columnId); 
     checkSpaceIsEmptyPlacepieceStorePosition(columnArray);
-    checkForHorizontalWinInConnectTwo();
+    checkForHorizontalWinInConnectfour();
     
-    console.log(arr);
+    //console.log(arr);
        
 }
 function fillArrayWithDomReferencesAndUpdate(){
@@ -81,17 +81,23 @@ function updateCurrentPlayerColor(){
 }
 
 function checkRowForWin(col, row){
-    if(arr[col][row].style.backgroundColor == "red" && arr[col + 1][row].style.backgroundColor == "red" && arr[col + 2][row].style.backgroundColor == "red" && arr[col + 3][row].style.backgroundColor == "red"){
+    if(arr[col][row].style.backgroundColor == "red" && arr[col + 1][row].style.backgroundColor == "red" && arr[col + 2][row].style.backgroundColor == "red" ){
         console.log("you win")
+        console.log(currentPlayer);
+    }else if(arr[col][row].style.backgroundColor == "black" && arr[col + 1][row].style.backgroundColor == "black" && arr[col + 2][row].style.backgroundColor == "black"){
+        console.log("you win")
+        console.log(col + 2)
     }
 }
-function checkForHorizontalWinInConnectTwo(playedRow, playedColumn) {
+function checkForHorizontalWinInConnectfour(playedRow, playedColumn) {
     for(let col = 0; col < 7; col++) {
         var row = 0;
-        console.log(arr[col][row]);
-        // console.log(col + 1);
-        checkRowForWin(col, row);
+        //console.log(arr[col][row]);
+         console.log(col + 1 );
+        if (col + 1 < 7 && col + 2 < 7 && col + 3 < 7){
+            checkRowForWin(col, row);
         }
+    }
         //Do stuff in this column
         for(let row = 0; row < 7; row++) {
             //Do stuff in this row
