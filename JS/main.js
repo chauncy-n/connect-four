@@ -9,11 +9,13 @@ var displayCurrentPlayer = document.getElementById('playerTurn');
 
 var resetBtn = document.getElementById("reset");
 
-
+var gridButtons = document.getElementById("gridBtn");
 
 
 //event listeners
 resetBtn.addEventListener('click', reset);
+
+gridButtons.addEventListener('click',evaluateGameConditions);
 
 //functions
 // create function to check for win after a piece has been played 
@@ -48,20 +50,21 @@ function displayWin(){
 // }
 //function take columnName and find out what column it isin class name for which column it's in 
 
-function getColumnName(columnLetter){
-    var columnName = columnArray[playedRow].classList.contains("columnLetter");
+function getColumnName(playedRow, columnArray, columnLetter){
+    var columnName = columnArray[playedRow].classList.contains(columnLetter);
     console.log(columnName);
+    // if (columnName == true){
+    //     console.log("this worked");
+    //}  
     return columnName;
+    
 }
 
 
 function getColor(playedRow, columnArray) {
     // returns color for the position of current piece placed. 
         console.log(columnArray[playedRow].classList.contains("G"));
-        // if(getColumnName("G") == true){
-        //     console.log("good");
-        // }
-    
+       
     console.log(columnArray[playedRow]);
     console.log(columnArray[playedRow].style.backgroundColor);
     return columnArray[playedRow].style.backgroundColor;    
@@ -70,13 +73,15 @@ function getColor(playedRow, columnArray) {
 
 // Given column name, return the column name to the right
 function nextColumn(columnName) {
-    if (columnName == "G")  return null 
-    else if (columnName == "F")  return "G";
-    else if (columnName == "E")  return "F";
-    else if (columnName == "D")  return "E";
-    else if (columnName == "C")  return "D";
-    else if (columnName == "B")  return "C";
-    else if (columnName == "A")  return "B"
+    if (columnName == true){  
+        console.log('this worked'); 
+        return null }
+    else if (columnName == "F") {  return "G"; }
+    else if (columnName == "E") {  return "F"; }
+    else if (columnName == "D") { return "E"; }
+    else if (columnName == "C") { return "D"; }
+    else if (columnName == "B") { return "C"; }
+    else if (columnName == "A") { return "B"; }
 }
 // Given column name return column name to the left
 function prevColumn(columnName) {
@@ -192,10 +197,15 @@ function evaluateGameConditions(e){
             console.log(playedRow = columnArray[indexValue].parentNode);
             playedRow = columnArray[indexValue].parentNode.classList.value;
             //console.log(columnName[playedRow]);
-            getColor(playedRow, columnArray);
-           
+            getColor(playedRow, columnArray);      
+            var columnName = getColumnName(playedRow ,columnArray, "G");
+           // I think next column may need to call columnName with each iteration 
+            // next column  returns TRUE need to make statement work for column letter
+            //check to see if column has a certain letter return one next to it
+            nextColumn(columnName);
+            //
+
             //checkForVerticalWinInConnectTwo(playedRow, columnName);
-            getColumnName("G");
             currentPlayer = "black";
             displayCurrentPlayer.textContent = "Player turn: " + currentPlayer;
             
