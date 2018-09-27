@@ -7,6 +7,8 @@ var text = document.getElementById('textDisplay');
 //cached element references
 var displayCurrentPlayer = document.getElementById('playerTurn');
 
+var currentPiecePosition;
+
 var resetBtn = document.getElementById("reset");
 
 var gridButtons = document.getElementById("gridBtn");
@@ -24,16 +26,16 @@ gridButtons.addEventListener('click',playMove);
 function playMove(evt){
     fillArrayWithDomReferencesAndUpdate();
     columnId = evt.target.id;
-    var columnArray = document.getElementsByClassName(columnId);   
-    checkSpaceIsEmptyPlacepiece(columnArray);
-    updateCurrentPlayerColor();
+    var columnArray = document.getElementsByClassName(columnId); 
+    checkSpaceIsEmptyPlacepieceStorePosition(columnArray);
+    checkForHorizontalWinInConnectTwo();
+    
     console.log(arr);
-    console.log(arr[0][0]);   
+       
 }
 function fillArrayWithDomReferencesAndUpdate(){
     var newArr = [];
     for(let i = 0; i < 7; i++){
-        console.log(gridButtons.children[i].id); 
         var columnLetter = gridButtons.children[i].id;
         newArr.push(document.getElementsByClassName(columnLetter));
     arr = newArr.slice(0);
@@ -41,7 +43,7 @@ function fillArrayWithDomReferencesAndUpdate(){
 }
      
 
-    // This will go through every position in th array
+    // This will go through every position in the array
     // for(let col = 0; col < 7; col++) {
     //     //Do stuff in this column
     //     for(let row = 0; row < 7; row++) {
@@ -50,12 +52,16 @@ function fillArrayWithDomReferencesAndUpdate(){
     //     }
     // }
 //}
-function checkSpaceIsEmptyPlacepiece(columnArray){
+function checkSpaceIsEmptyPlacepieceStorePosition(columnArray){
     for (var indexValue = columnArray.length - 1; indexValue >= 0; indexValue--){
         if(columnArray[indexValue].style.backgroundColor !== "black" 
-        && columnArray[indexValue].style.backgroundColor !== "red"
-            ) { 
+        && columnArray[indexValue].style.backgroundColor !== "red") { 
+            // currentPiecePosition = columnArray[indexValue];
             placePiece(columnArray[indexValue]);
+            updateCurrentPlayerColor();
+            console.log(indexValue);
+            // console.log(currentPiecePosition.indexValue)
+            
             break;
             
         }            
@@ -65,7 +71,6 @@ function placePiece(columnArray){
     columnArray.style.backgroundColor = currentPlayer;   
 }
 function updateCurrentPlayerColor(){
-    console.log(currentPlayer);
     if(currentPlayer === "red"){
         currentPlayer = "black";
         displayCurrentPlayer.textContent = "Player turn: " + currentPlayer; 
@@ -75,12 +80,25 @@ function updateCurrentPlayerColor(){
     }
 }
 
-function getcolorandlocation(){
-
+function checkRowForWin(col, row){
+    if(arr[col][row].style.backgroundColor == "red" && arr[col + 1][row].style.backgroundColor == "red" && arr[col + 2][row].style.backgroundColor == "red" && arr[col + 3][row].style.backgroundColor == "red"){
+        console.log("you win")
+    }
 }
-function checkForVerticalWinInConnectTwo(playedRow, playedColumn) {
+function checkForHorizontalWinInConnectTwo(playedRow, playedColumn) {
+    for(let col = 0; col < 7; col++) {
+        var row = 0;
+        console.log(arr[col][row]);
+        // console.log(col + 1);
+        checkRowForWin(col, row);
+        }
+        //Do stuff in this column
+        for(let row = 0; row < 7; row++) {
+            //Do stuff in this row
+            //console.log(arr[col][row]);
+        }
+    }
 
-}
 function checkForWin(){
 
 
@@ -112,24 +130,7 @@ function reset(e){
 
              
            
-//             //  this gets the class name of the row this row for the column that was selected. 
-//             //It this number will be used to find the column  and row cross section to find color
-//             console.log(playedRow = columnArray[indexValue].parentNode);
-//             playedRow = columnArray[indexValue].parentNode.classList.value;
-//             //console.log(columnName[playedRow]);
-//             getColor(playedRow, columnArray);      
-//             var columnName = getColumnName(playedRow ,columnArray, "G");
-//            // I think next column may need to call columnName with each iteration 
-//             // next column  returns TRUE need to make statement work for column letter
-//             //check to see if column has a certain letter return one next to it
-//             nextColumn(columnName);
-//             //
-
-//             //checkForVerticalWinInConnectTwo(playedRow, columnName);
-//             currentPlayer = "black";
-//             displayCurrentPlayer.textContent = "Player turn: " + currentPlayer;
-            
-//             break; 
+//             
 //         }else if(currentPlayer === "black" && columnArray[indexValue].style.backgroundColor !== "red"
 //         && columnArray[indexValue].style.backgroundColor !== "black") {
 //             columnArray[indexValue].style.backgroundColor = currentPlayer;
