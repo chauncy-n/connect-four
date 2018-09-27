@@ -7,7 +7,7 @@ var text = document.getElementById('textDisplay');
 //cached element references
 var displayCurrentPlayer = document.getElementById('playerTurn');
 
-var currentPiecePosition;
+var currentPiecePosition = [];
 
 var resetBtn = document.getElementById("reset");
 
@@ -28,7 +28,8 @@ function playMove(evt){
     columnId = evt.target.id;
     var columnArray = document.getElementsByClassName(columnId); 
     checkSpaceIsEmptyPlacepieceStorePosition(columnArray);
-    checkForHorizontalWinInConnectfour();
+    checkForHorizontalWinInConnectfour(0,0);
+    checkForVerticalWinInConnectFour();
     
     //console.log(arr);
        
@@ -57,7 +58,9 @@ function checkSpaceIsEmptyPlacepieceStorePosition(columnArray){
         if(columnArray[indexValue].style.backgroundColor !== "black" 
         && columnArray[indexValue].style.backgroundColor !== "red") { 
             // currentPiecePosition = columnArray[indexValue];
+            // console.log(currentPiecePosition);
             placePiece(columnArray[indexValue]);
+
             updateCurrentPlayerColor();
             console.log(indexValue);
             // console.log(currentPiecePosition.indexValue)
@@ -81,29 +84,58 @@ function updateCurrentPlayerColor(){
 }
 
 function checkRowForWin(col, row){
-    if(arr[col][row].style.backgroundColor == "red" && arr[col + 1][row].style.backgroundColor == "red" && arr[col + 2][row].style.backgroundColor == "red" ){
+    if(arr[col][row].style.backgroundColor == "red" && arr[col + 1][row].style.backgroundColor == "red" && arr[col + 2][row].style.backgroundColor == "red" && arr[col + 3][row].style.backgroundColor == "red"){
         console.log("you win")
         console.log(currentPlayer);
-    }else if(arr[col][row].style.backgroundColor == "black" && arr[col + 1][row].style.backgroundColor == "black" && arr[col + 2][row].style.backgroundColor == "black"){
+    }else if(arr[col][row].style.backgroundColor == "black" && arr[col + 1][row].style.backgroundColor == "black" && arr[col + 2][row].style.backgroundColor == "black" 
+     && arr[col + 3][row].style.backgroundColor == "black"){
         console.log("you win")
-        console.log(col + 2)
+        
     }
 }
+function checkColumnForWin(col, row){
+    if(arr[col][row].style.backgroundColor == "red" && arr[col][row + 1].style.backgroundColor == "red" && arr[col][row + 2].style.backgroundColor == "red" 
+    && arr[col][row + 3].style.backgroundColor == "red"){
+        console.log("you win")
+        console.log(currentPlayer);
+    }else if(arr[col][row].style.backgroundColor == "black" && arr[row + 1][row].style.backgroundColor == "black" && arr[row + 2][row].style.backgroundColor == "black" 
+    && arr[col][row + 3].style.backgroundColor == "black"){
+        console.log("you win")
+        
+    }
+}
+
 function checkForHorizontalWinInConnectfour(playedRow, playedColumn) {
     for(let col = 0; col < 7; col++) {
         var row = 0;
-        //console.log(arr[col][row]);
+        console.log(arr[col][row]);
          console.log(col + 1 );
-        if (col + 1 < 7 && col + 2 < 7 && col + 3 < 7){
+        if (col + 1 < 7 && col + 2 < 7 && col + 3 < 7 && row + 3 < 6 && row + 4 < 6 && row + 5 < 6){
             checkRowForWin(col, row);
+            checkRowForWin(col,row + 1);
+            checkRowForWin(col,row + 2);
+            checkRowForWin(col,row + 3);
+            checkRowForWin(col,row + 4);
+            checkRowForWin(col,row + 5);
         }
     }
-        //Do stuff in this column
-        for(let row = 0; row < 7; row++) {
+}
+function checkForVerticalWinInConnectFour(){
+    for(let row = 0; row < 3; row++) {
+        var col = 0;
+        if(row + 1 < 6 && row + 2 < 6){
+            checkColumnForWin(col, row);
+            //checkColumnForWin(col + 1, row);
+            // checkColumnForWin(col + 2, row);
+            // checkColumnForWin(col + 3, row);
+            // checkColumnForWin(col + 4, row);
+            // checkColumnForWin(col + 5, row);
+            // checkColumnForWin(col + 6, row);
+        }
             //Do stuff in this row
             //console.log(arr[col][row]);
-        }
     }
+}
 
 function checkForWin(){
 
