@@ -22,66 +22,34 @@ gridButtons.addEventListener('click',playMove);
 
 
 function playMove(evt){
-    
+    fillArrayWithDomReferencesAndUpdate();
     columnId = evt.target.id;
     var columnArray = document.getElementsByClassName(columnId);   
     checkSpaceIsEmptyPlacepiece(columnArray);
     updateCurrentPlayerColor();
-    
+    console.log(arr);
+    console.log(arr[0][0]);   
 }
-
-
-function fillArrayWithDomReferences(){
+function fillArrayWithDomReferencesAndUpdate(){
+    var newArr = [];
     for(let i = 0; i < 7; i++){
         console.log(gridButtons.children[i].id); 
         var columnLetter = gridButtons.children[i].id;
-        arr.push(document.getElementsByClassName(columnLetter));
+        newArr.push(document.getElementsByClassName(columnLetter));
+    arr = newArr.slice(0);
     }
-    console.log(arr);
-    console.log(arr[0][0]);
+}
+     
 
     // This will go through every position in th array
-    for(let col = 0; col < 7; col++) {
-        //Do stuff in this column
-        for(let row = 0; row < 7; row++) {
-            //Do stuff in this row
-            console.log(arr[col][row]);
-        }
-    }
-
-
-    // console.log(gridButtons.childNodes);
-    
-    // var  columnToPushToArray= document.querySelector("A");
-    // console.log(grid);
-}
-
-function placePiece(columnArray){
-    columnArray.style.backgroundColor = currentPlayer;
-    
-}
-
-function updateCurrentPlayerColor(){
-    console.log(currentPlayer);
-    if(currentPlayer === "red"){
-        currentPlayer = "black";
-        displayCurrentPlayer.textContent = "Player turn: " + currentPlayer; 
-    }else{
-        currentPlayer = "red"
-        displayCurrentPlayer.textContent = "Player turn: " + currentPlayer; 
-    }
-}
-function checkForWin(){
-
-}
-function displayWin(){
-    text.textContent = currentPlayer.toLocaleUpperCase() + " WINS";
-}
-
-function reset(e){
-
-}
-
+    // for(let col = 0; col < 7; col++) {
+    //     //Do stuff in this column
+    //     for(let row = 0; row < 7; row++) {
+    //         //Do stuff in this row
+    //         console.log(arr[col][row]);
+    //     }
+    // }
+//}
 function checkSpaceIsEmptyPlacepiece(columnArray){
     for (var indexValue = columnArray.length - 1; indexValue >= 0; indexValue--){
         if(columnArray[indexValue].style.backgroundColor !== "black" 
@@ -93,6 +61,41 @@ function checkSpaceIsEmptyPlacepiece(columnArray){
         }            
     }
 }
+function placePiece(columnArray){
+    columnArray.style.backgroundColor = currentPlayer;   
+}
+function updateCurrentPlayerColor(){
+    console.log(currentPlayer);
+    if(currentPlayer === "red"){
+        currentPlayer = "black";
+        displayCurrentPlayer.textContent = "Player turn: " + currentPlayer; 
+    }else{
+        currentPlayer = "red"
+        displayCurrentPlayer.textContent = "Player turn: " + currentPlayer; 
+    }
+}
+
+function getcolorandlocation(){
+
+}
+function checkForVerticalWinInConnectTwo(playedRow, playedColumn) {
+
+}
+function checkForWin(){
+
+
+}
+
+
+function displayWin(){
+    text.textContent = currentPlayer.toLocaleUpperCase() + " WINS";
+}
+
+function reset(e){
+
+}
+
+
 
 
 
@@ -107,16 +110,6 @@ function checkSpaceIsEmptyPlacepiece(columnArray){
 // }    
    // get parent node.class
 
-// function evaluateGameConditions(columnArray){
-//      columnArray = columnArray;
-//     console.log(columnArray);
-
-//      for (var indexValue = columnArray.length - 1; indexValue >= 0; indexValue--){
-//          if(columnArray[indexValue].style.backgroundColor !== "black" && columnArray[indexValue].style.backgroundColor !== "red"
-//          && currentPlayer === "red") { 
-//             columnArray[indexValue].style.backgroundColor = currentPlayer;
-//             // console.log(columnName[indexValue]);
-//             // console.log(indexValue);
              
            
 //             //  this gets the class name of the row this row for the column that was selected. 
