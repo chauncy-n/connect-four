@@ -1,4 +1,6 @@
 
+var gameOver = false;
+
 var currentPlayer = "red";
 
 var gridElements = document.getElementsByClassName('grid');
@@ -20,15 +22,17 @@ resetBtn.addEventListener('click', reset);
 gridButtons.addEventListener('click',playMove);
 
 function playMove(evt){
-    fillArrayWithDomReferencesAndUpdate();
-    columnId = evt.target.id;
-    var columnArray = document.getElementsByClassName(columnId); 
-    checkSpaceIsEmptyPlacepieceStorePosition(columnArray);
-    checkForHorizontalWinInConnectfour(0,0);
-    checkForVerticalWinInConnectFour();
-    checkTopLeftDiagonalWins();
-    checkBottomLeftDiagonalWin();
-    updateCurrentPlayerColor();
+    if(!gameOver){
+        fillArrayWithDomReferencesAndUpdate();
+        columnId = evt.target.id;
+        var columnArray = document.getElementsByClassName(columnId); 
+        checkSpaceIsEmptyPlacepieceStorePosition(columnArray);
+        checkForHorizontalWinInConnectfour(0,0);
+        checkForVerticalWinInConnectFour();
+        checkTopLeftDiagonalWins();
+        checkBottomLeftDiagonalWin();
+        updateCurrentPlayerColor();
+    }
 }
 function fillArrayWithDomReferencesAndUpdate(){
     var newArr = [];
@@ -62,24 +66,28 @@ function updateCurrentPlayerColor(){
 
 function checkRowForWin(col, row){
     if(arr[col][row].style.backgroundColor == currentPlayer && arr[col + 1][row].style.backgroundColor == currentPlayer && arr[col + 2][row].style.backgroundColor == currentPlayer && arr[col + 3][row].style.backgroundColor == currentPlayer){
-        displayWin();    
+        displayWin();  
+        gameOver = true;  
      }
 }
 function checkColumnForWin(col, row){
     if(arr[col][row].style.backgroundColor == currentPlayer && arr[col][row + 1].style.backgroundColor == currentPlayer && arr[col][row + 2].style.backgroundColor == currentPlayer && arr[col][row + 3].style.backgroundColor == currentPlayer){
         displayWin();
+        gameOver = true;
      }
 }
 function checkFromTopLeftDiagonal(col, row){
     if(row + 3 < 6){
         if(arr[col][row].style.backgroundColor == currentPlayer && arr[col + 1][row + 1].style.backgroundColor == currentPlayer && arr[col + 2][row + 2].style.backgroundColor == currentPlayer && arr[col + 3][row + 3].style.backgroundColor == currentPlayer){
             displayWin();
+            gameOver = true;
         }
      }
 }
 function checkFromBtmLeftDiagonal(col, row){
     if(arr[col][row].style.backgroundColor == currentPlayer && arr[col + 1][row - 1].style.backgroundColor == currentPlayer && arr[col + 2][row - 2].style.backgroundColor == currentPlayer && arr[col + 3][row - 3].style.backgroundColor == currentPlayer){
         displayWin();
+        gameOver = true;
      }
 }
 function checkForHorizontalWinInConnectfour() {
@@ -143,9 +151,11 @@ function displayWin(){
     text.textContent = currentPlayer.toLocaleUpperCase() + " WINS";
 }
 function reset(e){ 
+    gameOver = false;
     for(let i = 0; i < gridElements.length; i++){
-    if (gridElements[i].style.backgroundColor === "black" || gridElements[i].style.backgroundColor === "red") {
-            gridElements[i].style.backgroundColor = 'rgb(' + 206 + ',' + 168 + ',' + 122  + ')';                                       
+        if (gridElements[i].style.backgroundColor === "black" || gridElements[i].style.backgroundColor === "red") {
+            gridElements[i].style.backgroundColor = 'rgb(' + 206 + ',' + 168 + ',' + 122  + ')'; 
+                                              
         }
     }
 }    
