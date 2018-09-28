@@ -11,7 +11,7 @@ CSS, HTML and Javascript
 
 
 ## Connect to game 
-
+https://chauncy-n.github.io/connect-four/
 
 ## problems to solve
 * Getting button to stop selecting once pieces have reached the top.
