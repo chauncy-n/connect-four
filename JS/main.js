@@ -1,10 +1,10 @@
-//apps state (variables)
+
 var currentPlayer = "red";
 
 var gridElements = document.getElementsByClassName('grid');
 
 var text = document.getElementById('textDisplay');
-//cached element references
+
 var displayCurrentPlayer = document.getElementById('playerTurn');
 
 var currentPiecePosition = [];
@@ -14,14 +14,10 @@ var resetBtn = document.getElementById("reset");
 var gridButtons = document.getElementById("gridBtn");
 
 var arr = [];
-//event listeners
+
 resetBtn.addEventListener('click', reset);
 
 gridButtons.addEventListener('click',playMove);
-
-//functions
-//  Playmove contains functions checkSpaceIsEmpty, updateCurrentPlayerColor, placePiece, checkForWin 
-
 
 function playMove(evt){
     fillArrayWithDomReferencesAndUpdate();
@@ -33,8 +29,6 @@ function playMove(evt){
     checkTopLeftDiagonalWins();
     checkBottomLeftDiagonalWin();
     updateCurrentPlayerColor();
-    //console.log(arr);
-       
 }
 function fillArrayWithDomReferencesAndUpdate(){
     var newArr = [];
@@ -44,31 +38,12 @@ function fillArrayWithDomReferencesAndUpdate(){
     arr = newArr.slice(0);
     }
 }
-     
-
-    // This will go through every position in the array
-    // for(let col = 0; col < 7; col++) {
-    //     //Do stuff in this column
-    //     for(let row = 0; row < 7; row++) {
-    //         //Do stuff in this row
-    //         console.log(arr[col][row]);
-    //     }
-    // }
-//}
 function checkSpaceIsEmptyPlacepieceStorePosition(columnArray){
     for (var indexValue = columnArray.length - 1; indexValue >= 0; indexValue--){
         if(columnArray[indexValue].style.backgroundColor !== "black" 
         && columnArray[indexValue].style.backgroundColor !== "red") { 
-            // currentPiecePosition = columnArray[indexValue];
-            // console.log(currentPiecePosition);
             placePiece(columnArray[indexValue]);
-
-            
-            //console.log(indexValue);
-            // console.log(currentPiecePosition.indexValue)
-            
             break;
-            
         }            
     }
 }
