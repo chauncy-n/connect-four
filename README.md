@@ -1,28 +1,20 @@
-## connect four user story
+## Connect four
 
-* see layout of game
-* see player turn red or black
-* see pieces fill in each block
+* each player picks a color then take turns selecting a row,droppping a piece to the bottom. if you connect four of your color vertically, horizontally or diagonally you win.
 
-## user interface
+## Snapshot of the game
 
-* buttons above each column have a button to place piece
-* display player turn
-* if player gets four in a row display which color wins 
-* possibaly have highlighted row show falling peice
-* possibly have player move a red or black circle to correct row or just click on the row
-* player instructions 
-* reset button
+[Imgur](https://i.imgur.com/iYsyj5t.png)
 
-## pseudocode
-* wrapper background yellow inner divs circle css 50% BORDER 
-* create an array (list) of divs in a list to check each box 
-* display instructions display clean grid for connect four with circles to be filled 
-* create red and black peice to fill  in spaces
-* on clicks on column to drop peice into place, peice stops at unfilled div with a null value or &nbsp.
-* check for a win of four in a row, check current played peice 8 directions 4 positions out 
-* check for win
-* reset button game to clear board
+## Technologies used
+CSS, HTML and Javascript 
 
-##layout [Imgur](https://i.imgur.com/xAFmfLr.png)
-https://i.imgur.com/xAFmfLr.png
+
+## Connect to game 
+
+
+## problems to solve
+* Getting button to stop selecting once pieces have reached the top.
+* Getting reset button to redisply instructions or score.
+* 
+* Showing score for red and black

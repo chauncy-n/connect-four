@@ -142,18 +142,11 @@ function checkBottomLeftDiagonalWin(){
 function displayWin(){
     text.textContent = currentPlayer.toLocaleUpperCase() + " WINS";
 }
-
-function reset(e){
-
-}
 function reset(e){ 
     for(let i = 0; i < gridElements.length; i++){
     if (gridElements[i].style.backgroundColor === "black" || gridElements[i].style.backgroundColor === "red") {
             gridElements[i].style.backgroundColor = 'rgb(' + 206 + ',' + 168 + ',' + 122  + ')';                                       
         }
     }
-}
-
-
-
-
+}    
+   
