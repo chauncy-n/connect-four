@@ -30,7 +30,9 @@ function playMove(evt){
     checkSpaceIsEmptyPlacepieceStorePosition(columnArray);
     checkForHorizontalWinInConnectfour(0,0);
     checkForVerticalWinInConnectFour();
-    
+    checkTopLeftDiagonalWins();
+    checkBottomLeftDiagonalWin();
+    updateCurrentPlayerColor();
     //console.log(arr);
        
 }
@@ -61,8 +63,8 @@ function checkSpaceIsEmptyPlacepieceStorePosition(columnArray){
             // console.log(currentPiecePosition);
             placePiece(columnArray[indexValue]);
 
-            updateCurrentPlayerColor();
-            console.log(indexValue);
+            
+            //console.log(indexValue);
             // console.log(currentPiecePosition.indexValue)
             
             break;
@@ -84,32 +86,30 @@ function updateCurrentPlayerColor(){
 }
 
 function checkRowForWin(col, row){
-    if(arr[col][row].style.backgroundColor == "red" && arr[col + 1][row].style.backgroundColor == "red" && arr[col + 2][row].style.backgroundColor == "red" && arr[col + 3][row].style.backgroundColor == "red"){
-        console.log("you win")
-        console.log(currentPlayer);
-    }else if(arr[col][row].style.backgroundColor == "black" && arr[col + 1][row].style.backgroundColor == "black" && arr[col + 2][row].style.backgroundColor == "black" 
-     && arr[col + 3][row].style.backgroundColor == "black"){
-        console.log("you win")
-        
-    }
+    if(arr[col][row].style.backgroundColor == currentPlayer && arr[col + 1][row].style.backgroundColor == currentPlayer && arr[col + 2][row].style.backgroundColor == currentPlayer && arr[col + 3][row].style.backgroundColor == currentPlayer){
+        displayWin();    
+     }
 }
 function checkColumnForWin(col, row){
-    if(arr[col][row].style.backgroundColor == "red" && arr[col][row + 1].style.backgroundColor == "red" && arr[col][row + 2].style.backgroundColor == "red" 
-    && arr[col][row + 3].style.backgroundColor == "red"){
-        console.log("you win")
-        console.log(currentPlayer);
-    }else if(arr[col][row].style.backgroundColor == "black" && arr[row + 1][row].style.backgroundColor == "black" && arr[row + 2][row].style.backgroundColor == "black" 
-    && arr[col][row + 3].style.backgroundColor == "black"){
-        console.log("you win")
-        
-    }
+    if(arr[col][row].style.backgroundColor == currentPlayer && arr[col][row + 1].style.backgroundColor == currentPlayer && arr[col][row + 2].style.backgroundColor == currentPlayer && arr[col][row + 3].style.backgroundColor == currentPlayer){
+        displayWin();
+     }
 }
-
-function checkForHorizontalWinInConnectfour(playedRow, playedColumn) {
+function checkFromTopLeftDiagonal(col, row){
+    if(row + 3 < 6){
+        if(arr[col][row].style.backgroundColor == currentPlayer && arr[col + 1][row + 1].style.backgroundColor == currentPlayer && arr[col + 2][row + 2].style.backgroundColor == currentPlayer && arr[col + 3][row + 3].style.backgroundColor == currentPlayer){
+            displayWin();
+        }
+     }
+}
+function checkFromBtmLeftDiagonal(col, row){
+    if(arr[col][row].style.backgroundColor == currentPlayer && arr[col + 1][row - 1].style.backgroundColor == currentPlayer && arr[col + 2][row - 2].style.backgroundColor == currentPlayer && arr[col + 3][row - 3].style.backgroundColor == currentPlayer){
+        displayWin();
+     }
+}
+function checkForHorizontalWinInConnectfour() {
     for(let col = 0; col < 7; col++) {
         var row = 0;
-        console.log(arr[col][row]);
-         console.log(col + 1 );
         if (col + 1 < 7 && col + 2 < 7 && col + 3 < 7 && row + 3 < 6 && row + 4 < 6 && row + 5 < 6){
             checkRowForWin(col, row);
             checkRowForWin(col,row + 1);
@@ -125,24 +125,45 @@ function checkForVerticalWinInConnectFour(){
         var col = 0;
         if(row + 1 < 6 && row + 2 < 6){
             checkColumnForWin(col, row);
-            //checkColumnForWin(col + 1, row);
-            // checkColumnForWin(col + 2, row);
-            // checkColumnForWin(col + 3, row);
-            // checkColumnForWin(col + 4, row);
-            // checkColumnForWin(col + 5, row);
-            // checkColumnForWin(col + 6, row);
+            checkColumnForWin(col + 1, row);
+            checkColumnForWin(col + 2, row);
+            checkColumnForWin(col + 3, row);
+            checkColumnForWin(col + 4, row);
+            checkColumnForWin(col + 5, row);
+            checkColumnForWin(col + 6, row);
         }
-            //Do stuff in this row
-            //console.log(arr[col][row]);
     }
 }
-
-function checkForWin(){
-
-
+function checkTopLeftDiagonalWins(){
+    checkFromTopLeftDiagonal(0,0);
+    checkFromTopLeftDiagonal(1,1);
+    checkFromTopLeftDiagonal(2,2);
+    checkFromTopLeftDiagonal(1, 0);
+    checkFromTopLeftDiagonal(2, 1);
+    checkFromTopLeftDiagonal(3, 2);
+    checkFromTopLeftDiagonal(2, 0);
+    checkFromTopLeftDiagonal(3, 0);
+    checkFromTopLeftDiagonal(3, 1);
+    checkFromTopLeftDiagonal(0, 1);
+    checkFromTopLeftDiagonal(1, 2);
+    checkFromTopLeftDiagonal(0, 2);                
 }
+    
 
-
+function checkBottomLeftDiagonalWin(){
+    checkFromBtmLeftDiagonal(0, 5);
+    checkFromBtmLeftDiagonal(0, 4);
+    checkFromBtmLeftDiagonal(0, 3);
+    checkFromBtmLeftDiagonal(1, 5);
+    checkFromBtmLeftDiagonal(1, 4);
+    checkFromBtmLeftDiagonal(1, 3);
+    checkFromBtmLeftDiagonal(2, 5);
+    checkFromBtmLeftDiagonal(2, 4);
+    checkFromBtmLeftDiagonal(2, 3);
+    checkFromBtmLeftDiagonal(3, 5);
+    checkFromBtmLeftDiagonal(3, 4);
+    checkFromBtmLeftDiagonal(3, 3);
+}    
 function displayWin(){
     text.textContent = currentPlayer.toLocaleUpperCase() + " WINS";
 }
@@ -150,187 +171,13 @@ function displayWin(){
 function reset(e){
 
 }
-
-
-
-
-
-
-
-// function reset(e){ 
-//     for(let i = 0; i < gridElements.length; i++){
-//         if (gridElements[i].style.backgroundColor === "black" || gridElements[i].style.backgroundColor === "red") {
-//             gridElements[i].style.backgroundColor = 'rgb(' + 206 + ',' + 168 + ',' + 122  + ')';                                       
-//         }
-//     }
-// }    
-   // get parent node.class
-
-             
-           
-//             
-//         }else if(currentPlayer === "black" && columnArray[indexValue].style.backgroundColor !== "red"
-//         && columnArray[indexValue].style.backgroundColor !== "black") {
-//             columnArray[indexValue].style.backgroundColor = currentPlayer;
-            
-//             //console.log(playedRow= columnName[indexValue].parentNode.classList.value);
-//             playedRow = columnArray[indexValue].parentNode.classList.value;
-//             //console.log(columnName[playedRow]);
-//             getColor(playedRow, columnArray);
-                    
-//             currentPlayer = "red";
-//             displayCurrentPlayer.textContent =  "Player turn: " + currentPlayer;
-//             break;
-//         }                   
-//     }
-// }    
-
-
-
-
-
-
-// function checkHorizontalWin(location){
-//     var sum = 0; 
-//     for (var index = location; index <= gridElements.length - 1; i++) {
-//         if(location[sum + 0].style.backgroundColor === gridElements[sum + 1].style.backgroundColor
-//             && gridElements[sum + 1].innerHTML !== "&nbsp") {
-//             console.log(gridElements[sum + 0]);           
-//             console.log(gridElements[sum + 1]);
-//             sum = sum + 1;
-//             console.log(sum);
-//             console.log(gridElements[index]);                   
-//             if(sum === 4){
-//                 displayWin();
-//                 console.log('you win')
-//                 break;
-//             }
-//         }else{
-//             break;
-//         }      
-//     }      
-// }
-//function take columnName and find out what column it isin class name for which column it's in 
-
-// function getColumnName(playedRow, columnArray, columnLetter){
-//     var columnName = columnArray[playedRow].classList.contains(columnLetter);
-//     console.log(columnName);
-//     // if (columnName == true){
-//     //     console.log("this worked");
-//     //}  
-//     return columnName;
-    
-// }
-
-
-// function getColor(playedRow, columnArray) {
-//     // returns color for the position of current piece placed. 
-//         console.log(columnArray[playedRow].classList.contains("G"));
-       
-//     console.log(columnArray[playedRow]);
-//     console.log(columnArray[playedRow].style.backgroundColor);
-//     return columnArray[playedRow].style.backgroundColor;    
-// }
-// // need to take this position and check one up 
-
-// // Given column name, return the column name to the right
-// function nextColumn(columnName) {
-//     if (columnName == true){  
-//         console.log('this worked'); 
-//         return null }
-//     else if (columnName == "F") {  return "G"; }
-//     else if (columnName == "E") {  return "F"; }
-//     else if (columnName == "D") { return "E"; }
-//     else if (columnName == "C") { return "D"; }
-//     else if (columnName == "B") { return "C"; }
-//     else if (columnName == "A") { return "B"; }
-// }
-// // Given column name return column name to the left
-// function prevColumn(columnName) {
-//     if (columnName == "A")  return null 
-//     else if (columnName == "B")  return "A";
-//     else if (columnName == "C")  return "B";
-//     else if (columnName == "D")  return "C";
-//     else if (columnName == "E")  return "D";
-//     else if (columnName == "F")  return "E";
-//     else if (columnName == "G")  return "F";
-// }
-// // given row number return number above
-// function nextRow(playedRow){
-//     if (playedRow == "5") return null;
-//     else if (playedRow == "4") return "5";
-//     else if (playedRow == "3") return "4";
-//     else if (playedRow == "2") return "3";
-//     else if (playedRow == "1") return "2";
-//     else if (playedRow == "0") return "1";
-// }
-// // given row number return number below
-// function prevRow(playedRow){
-//     if (playedRow == "0") return null;
-//     else if (playedRow == "5") return "4";
-//     else if (playedRow == "4") return "3";
-//     else if (playedRow == "3") return "2";
-//     else if (playedRow == "2") return "1";
-//     else if (playedRow == "1") return "0";
-// }
-
-// //
-// // If the cell above, below, left or right or any of the four diagonals is
-// // the same color as the current cell, it's a win. If we are at an edge, don't
-// // check off the grid.
-// //
-// // CurrentColor = color in the current cell
-// // if CurrentColor == color in the cell above then return win
-// // if CurrentColor == color in the cell below then return win
-
-// //
-// function checkForVerticalWinInConnectTwo(playedRow, playedColumn) {
-//     if (getColor(playedRow, playedColumn) == getColor(playedRow+1, playedColumn)) {  
-//         // return true
-//         console.log("you win")
-//     }    
-//     else if (getColor(playedRow, playedColumn) == getColor(playedRow, nextColumn(columnName))){
-//         console.log("you win")
-//         //    console log 
-//     }
-// }
-
-// function checkVerticalWin(column, i){
-//     var sum = 5;  
-//     console.log(column[i + 1]);
-//     console.log(column[i]);
-//     console.log(column[0]);
-//     // if the current played cell selected is in the grid and the next cell below is also on the grid i === row number
-//     //need
-//     if(column[i] >= 0 && column[i + 1] !== undefined){
-//         //if the two cells have the same played tile background color and not the original background color
-//         if (column[i].style.backgroundColor === column[i + 1].style.backgroundColor
-//             && column[i + 1].style.backgroundColor !== 'rgb(' + 206 + ',' + 168 + ',' + 122  + ')'){
-//             for (var index = column.length - 1; index >= 0; i--) {
-//                 if(column[index].style.backgroundColor === column[sum + 1].style.backgroundColor){
-//                     sum = sum - 1;
-//                     console.log(sum); 
-                                       
-//                     if(sum === 2){
-//                         displayWin();
-//                         console.log('you win')
-//                         break;
-//                     }
-//                 }else{
-//                     break;
-//                 }
-                
-//             }
-            
-//         }
-//     }      
-// }
-
-
-
-
-
-
+function reset(e){ 
+    for(let i = 0; i < gridElements.length; i++){
+    if (gridElements[i].style.backgroundColor === "black" || gridElements[i].style.backgroundColor === "red") {
+            gridElements[i].style.backgroundColor = 'rgb(' + 206 + ',' + 168 + ',' + 122  + ')';                                       
+        }
+    }
+}
 
 
 
