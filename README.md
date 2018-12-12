@@ -3,8 +3,8 @@
 * each player picks a color then take turns selecting a row,droppping a piece to the bottom. if you connect four of your color vertically, horizontally or diagonally you win.
 
 ## Snapshot of the game
+<img src="https://i.imgur.com/b8V5u3y.png">
 
-[Imgur](https://i.imgur.com/iYsyj5t.png)
 
 ## Technologies used
 CSS, HTML and Javascript 
